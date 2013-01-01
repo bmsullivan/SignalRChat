@@ -24,7 +24,14 @@
             });
 
 
-            conn.start();
+            conn.start().done(function() {                
+                if (conn.eventSource) {
+                    conn.eventSource.addEventListener('message', function(event) {
+                        console.log("EventSource message: " + event.data);
+                    });
+                }
+            });
+            
         });
     </script>
 }
