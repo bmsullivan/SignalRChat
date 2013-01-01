@@ -1,0 +1,30 @@
+﻿<div id="chatArea"></div>
+<div>
+    <input type="text" id="chatText" />
+    <button id="sendButton">Send</button>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="~/Scripts/jquery.signalR-1.0.0-rc1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+
+            var conn = $.connection("/chat");
+
+            $("#sendButton").click(function () {
+                // Send text to server
+                var chatText = $("#chatText");
+                conn.send(chatText.val());
+                chatText.val("");
+            });
+
+            conn.received(function (data) {
+                $("#chatArea").append("<div>" + data + "</div>");
+            });
+
+
+            conn.start();
+        });
+    </script>
+}

@@ -7,11 +7,15 @@ using System.Web.Routing;
 
 namespace SignalRChat
 {
+    using Microsoft.AspNet.SignalR;
+
     public class RouteConfig
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapConnection<ChatConnection>("chat", "chat/{*operation}");
 
             routes.MapRoute(
                 name: "Default",
