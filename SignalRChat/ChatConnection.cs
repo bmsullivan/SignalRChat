@@ -13,5 +13,15 @@ namespace SignalRChat
         {
             return Connection.Broadcast(data);
         }
+
+        protected override System.Threading.Tasks.Task OnConnectedAsync(IRequest request, string connectionId)
+        {
+            return Connection.Broadcast(connectionId + " joined the room");
+        }
+
+        protected override System.Threading.Tasks.Task OnDisconnectAsync(IRequest request, string connectionId)
+        {
+            return Connection.Broadcast(connectionId + " left the room");
+        }
     }
 }
